@@ -1,6 +1,7 @@
 package br.unip.views;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,7 +10,12 @@ import javax.swing.JScrollPane;
 import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.JProgressBar;
 
 public class Dashboard {
 
@@ -64,9 +70,22 @@ public class Dashboard {
 		btnWarn.setBounds(408, 10, 81, 41);
 		panel.add(btnWarn);
 		
+		JButton btnRefresh = new JButton("");
+		btnRefresh.setBounds(214, 10, 81, 41);
+		panel.add(btnRefresh);
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource("assets/refresh.png"));
+			btnRefresh.setIcon( new ImageIcon(img));
+		} catch ( Exception e) {
+			
+		}
+		
+		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		desktopPane.setBounds(10, 83, 499, 246);
 		frmDashboard.getContentPane().add(desktopPane);
+
 	}
 }
