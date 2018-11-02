@@ -50,7 +50,8 @@ public class Dashboard {
 		frmDashboard.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		Button btnInsert = new Button("Add");
+		// JButton Insert / Add
+		JButton btnInsert = new JButton("");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -58,27 +59,69 @@ public class Dashboard {
 		btnInsert.setBounds(10, 10, 81, 41);
 		panel.add(btnInsert);
 		
-		Button btnList = new Button("List All");
-		btnList.setBounds(123, 10, 81, 41);
+		try {
+			btnInsert.setIcon( 
+				new ImageIcon(
+					ImageIO.read(getClass().getResource("/br/unip/assets/add.png"))
+			));
+		} catch ( Exception e) {
+			btnInsert.setText("Add");
+		}
+		
+		// JButton List All
+		JButton btnList = new JButton("");
+		btnList.setBounds(101, 10, 81, 41);
 		panel.add(btnList);
 		
-		Button btnSearch = new Button("Search");
-		btnSearch.setBounds(301, 10, 81, 41);
+		try {
+			btnList.setIcon( 
+				new ImageIcon(
+					ImageIO.read(getClass().getResource("/br/unip/assets/list.png"))
+			));
+		} catch ( Exception e) {
+			btnList.setText("List All");
+		}
+		
+		// JButton Search
+		JButton btnSearch = new JButton("");
+		btnSearch.setBounds(283, 10, 81, 41);
 		panel.add(btnSearch);
 		
-		Button btnWarn = new Button("Warns");
-		btnWarn.setBounds(408, 10, 81, 41);
+		try {
+			btnSearch.setIcon( 
+				new ImageIcon(
+					ImageIO.read(getClass().getResource("/br/unip/assets/search.png"))
+			));
+		} catch ( Exception e) {
+			btnSearch.setText("Search");
+		}
+		
+		// JButton Warn
+		JButton btnWarn = new JButton("");
+		btnWarn.setBounds(374, 10, 81, 41);
 		panel.add(btnWarn);
 		
+		try {
+			btnWarn.setIcon( 
+				new ImageIcon(
+					ImageIO.read(getClass().getResource("/br/unip/assets/warning.png"))
+			));
+		} catch ( Exception e) {
+			btnWarn.setText("Warns");
+		}
+		
+		// JButton Refresh
 		JButton btnRefresh = new JButton("");
-		btnRefresh.setBounds(214, 10, 81, 41);
+		btnRefresh.setBounds(192, 10, 81, 41);
 		panel.add(btnRefresh);
 		
 		try {
-			Image img = ImageIO.read(getClass().getResource("assets/refresh.png"));
-			btnRefresh.setIcon( new ImageIcon(img));
+			btnRefresh.setIcon( 
+				new ImageIcon(
+					ImageIO.read(getClass().getResource("/br/unip/assets/refresh.png"))
+			));
 		} catch ( Exception e) {
-			
+			btnRefresh.setText("Refresh");
 		}
 		
 		
