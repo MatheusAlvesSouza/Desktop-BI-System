@@ -13,7 +13,7 @@ public class ConnectionFactory {
 		con = null;
 		
 		try {
-			con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pessoas", "root", "");
+			con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/native_american", "root", "");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

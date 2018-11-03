@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JProgressBar;
+import java.awt.Toolkit;
 
 public class Dashboard {
 
@@ -37,6 +38,7 @@ public class Dashboard {
 	 */
 	private void initialize() {
 		frmDashboard = new JFrame();
+		frmDashboard.setIconImage(Toolkit.getDefaultToolkit().getImage(Dashboard.class.getResource("/br/unip/assets/login.png")));
 		frmDashboard.setTitle("Dashboard");
 		frmDashboard.setResizable(false);
 		frmDashboard.setAlwaysOnTop(true);
@@ -67,6 +69,16 @@ public class Dashboard {
 		} catch ( Exception e) {
 			btnInsert.setText("Add");
 		}
+		
+		btnInsert.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddMenu addMenu = new AddMenu();
+				addMenu.start();
+			}
+		});
 		
 		// JButton List All
 		JButton btnList = new JButton("");

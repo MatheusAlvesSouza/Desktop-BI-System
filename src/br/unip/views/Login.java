@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class Login {
 
@@ -45,6 +46,7 @@ public class Login {
 	 */
 	private void initialize() {
 		frmProjectName = new JFrame();
+		frmProjectName.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/br/unip/assets/login.png")));
 		frmProjectName.setTitle("Native Human Project");
 		frmProjectName.setBounds(100, 100, 559, 360);
 		frmProjectName.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
