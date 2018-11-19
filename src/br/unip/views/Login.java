@@ -46,6 +46,7 @@ public class Login {
 	 */
 	private void initialize() {
 		frmProjectName = new JFrame();
+		frmProjectName.setResizable(false);
 		frmProjectName.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/br/unip/assets/login.png")));
 		frmProjectName.setTitle("Native Human Project");
 		frmProjectName.setBounds(100, 100, 559, 360);
