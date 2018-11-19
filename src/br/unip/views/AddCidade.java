@@ -7,18 +7,29 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.unip.dao.CidadeDAO;
+import br.unip.dao.EstadoDAO;
+import br.unip.models.Cidade;
+import br.unip.models.Estado;
+
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import br.unip.utils.*;
 
 public class AddCidade extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textCidade;
+	private CidadeDAO cidadeDAO = new CidadeDAO();
 
 	public void start() {
 		try {
@@ -59,7 +70,14 @@ public class AddCidade extends JDialog {
 		textCidade.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"S\u00E3o Paulo"}));
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		ArrayList<Estado> estados = estadoDAO.listarEstados(1);
+		
+		for( Estado estado : estados) {
+			comboBox.addItem(new ComboItem(estado.getNome(), estado.getId()));
+		}
+		
 		comboBox.setBounds(89, 8, 105, 20);
 		contentPanel.add(comboBox);
 		{
@@ -68,6 +86,19 @@ public class AddCidade extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Object item = comboBox.getSelectedItem();
+						int idEstado = ((ComboItem)item).getValue();
+						
+						Cidade cidade = new Cidade();
+						cidade.setIdEstado(idEstado);
+						cidade.setNome(textCidade.getText());
+						if(cidadeDAO.adicionar(cidade)) {
+							dispose();
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

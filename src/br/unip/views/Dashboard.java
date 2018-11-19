@@ -1,13 +1,8 @@
 package br.unip.views;
 
-import java.awt.EventQueue;
-import java.awt.Image;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -15,12 +10,19 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
-import javax.swing.JProgressBar;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
+import java.awt.Font;
+
+import br.unip.dao.*;
 
 public class Dashboard {
 
 	private JFrame frmDashboard;
+	JLabel label_n_denuncias = new JLabel("0");
+	JLabel label_n_reservas = new JLabel("0");
+	JLabel label_n_indios = new JLabel("0");
+
 
 	/**
 	 * Create the application.
@@ -136,11 +138,67 @@ public class Dashboard {
 			btnRefresh.setText("Refresh");
 		}
 		
+		btnRefresh.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				getInfos();
+				
+			}
+		});
+		
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		desktopPane.setBounds(10, 83, 499, 246);
 		frmDashboard.getContentPane().add(desktopPane);
-
+		
+		JLabel lblReservasInd = new JLabel("Reservas Ind\u00EDgenas");
+		lblReservasInd.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblReservasInd.setBounds(53, 122, 135, 35);
+		desktopPane.add(lblReservasInd);
+		
+		JLabel lblndios = new JLabel("\u00CDndios");
+		lblndios.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblndios.setBounds(237, 132, 46, 14);
+		desktopPane.add(lblndios);
+		
+		JLabel lblDenncias = new JLabel("Den\u00FAncias");
+		lblDenncias.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblDenncias.setBounds(328, 132, 84, 14);
+		desktopPane.add(lblDenncias);
+		
+		label_n_reservas.setForeground(Color.GREEN);
+		label_n_reservas.setFont(new Font("OCR A Extended", Font.BOLD, 32));
+		label_n_reservas.setBounds(104, 91, 57, 35);
+		desktopPane.add(label_n_reservas);
+		
+		label_n_indios.setForeground(Color.GREEN);
+		label_n_indios.setFont(new Font("OCR A Extended", Font.BOLD, 32));
+		label_n_indios.setBounds(245, 91, 57, 35);
+		desktopPane.add(label_n_indios);
+		
+		
+		label_n_denuncias.setForeground(Color.RED);
+		label_n_denuncias.setFont(new Font("OCR A Extended", Font.BOLD, 32));
+		label_n_denuncias.setBounds(347, 91, 57, 35);
+		desktopPane.add(label_n_denuncias);
+		
+		getInfos();
+		
+	}
+	
+	public void getInfos () {
+		
+		ReservaIndigenaDAO reservasDAO = new ReservaIndigenaDAO();
+		DenunciaDesmatamentoDAO denunciasDAO = new DenunciaDesmatamentoDAO();
+		IndioDAO indioDAO = new IndioDAO();
+		
+		
+		label_n_reservas.setText((reservasDAO.listarReservas(0).size() + ""));
+		label_n_indios.setText(indioDAO.listarIndios(0).size() + "");
+		label_n_denuncias.setText(denunciasDAO.listarDenuncias(0).size() + "");
+		
 	}
 }

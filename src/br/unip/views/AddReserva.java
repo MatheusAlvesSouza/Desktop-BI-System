@@ -7,17 +7,33 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.unip.dao.CidadeDAO;
+import br.unip.dao.EstadoDAO;
+import br.unip.dao.ReservaIndigenaDAO;
+import br.unip.models.Cidade;
+import br.unip.models.Estado;
+import br.unip.models.ReservaIndigena;
+import br.unip.utils.ComboItem;
+
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class AddReserva extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldNome;
+	JComboBox comboBoxEstado = new JComboBox();
+	JComboBox comboBoxCidade = new JComboBox();
+	CidadeDAO cidadeDAO = new CidadeDAO();
+	ReservaIndigenaDAO reservaDAO = new ReservaIndigenaDAO();
 
 	public void start() {
 		try {
@@ -59,12 +75,28 @@ public class AddReserva extends JDialog {
 			contentPanel.add(lblNome);
 		}
 		{
-			JComboBox comboBoxEstado = new JComboBox();
+			
 			comboBoxEstado.setBounds(53, 23, 88, 20);
+			
+			EstadoDAO estadoDAO = new EstadoDAO();
+			ArrayList<Estado> estados = estadoDAO.listarEstados(1);
+			
+			for( Estado estado : estados) {
+				comboBoxEstado.addItem(new ComboItem(estado.getNome(), estado.getId()));
+			}
+			
+			atualizaCidade();
+			comboBoxEstado.addItemListener( new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					atualizaCidade();
+				}
+			});
 			contentPanel.add(comboBoxEstado);
 		}
 		{
-			JComboBox comboBoxCidade = new JComboBox();
+			
 			comboBoxCidade.setBounds(53, 63, 88, 20);
 			contentPanel.add(comboBoxCidade);
 		}
@@ -80,6 +112,18 @@ public class AddReserva extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Object item = comboBoxCidade.getSelectedItem();
+						int idCidade = ((ComboItem)item).getValue();
+						ReservaIndigena reserva = new ReservaIndigena();
+						reserva.setIdCidade(idCidade);
+						reserva.setNome(textFieldNome.getText());
+						if (reservaDAO.adicionar(reserva)) {
+							dispose();
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -94,6 +138,16 @@ public class AddReserva extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+	
+	public void atualizaCidade() {
+		Object item = comboBoxEstado.getSelectedItem();
+		int idEstado = ((ComboItem)item).getValue();
+		ArrayList<Cidade> cidades = cidadeDAO.listarCidades(idEstado);
+		comboBoxCidade.removeAllItems();
+		for( Cidade cidade : cidades) {
+			comboBoxCidade.addItem(new ComboItem(cidade.getNome(), cidade.getId()));
 		}
 	}
 

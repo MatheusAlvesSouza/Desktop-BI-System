@@ -56,7 +56,6 @@ public class IndioDAO {
 			
 			rs = stm.executeQuery();
 
-			
 			while( rs.next() ){
 				Indio indio = new Indio();
 				indio.setId( rs.getInt("id") );
@@ -69,7 +68,11 @@ public class IndioDAO {
 			
 			fab.fecharConexao();
 			
-		} catch (SQLException e) {}
+		} catch (SQLException e) {
+
+		}
+
+
 		
 		return indios;
 	}
