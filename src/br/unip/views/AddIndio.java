@@ -6,21 +6,37 @@ import java.awt.FlowLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
+import br.unip.dao.IndioDAO;
+import br.unip.dao.ReservaIndigenaDAO;
+import br.unip.models.Estado;
+import br.unip.models.Indio;
+import br.unip.models.ReservaIndigena;
+import br.unip.utils.ComboItem;
+
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class AddIndio extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	JComboBox comboBoxReserva = new JComboBox();
 	private JTextField textFieldNome;
 	private JTextField textFieldDtNasc;
+	private ReservaIndigenaDAO reservaDAO = new ReservaIndigenaDAO();
+	private IndioDAO indioDAO = new IndioDAO();
 
 	public void start() {
 		try {
@@ -73,8 +89,14 @@ public class AddIndio extends JDialog {
 			contentPanel.add(lblDataDeNascimento);
 		}
 		{
-			JComboBox comboBoxReserva = new JComboBox();
+			
 			comboBoxReserva.setBounds(131, 8, 164, 20);
+			
+			ArrayList<ReservaIndigena> reservas = reservaDAO.listarReservas(0);
+			for( ReservaIndigena reserva : reservas) {
+				comboBoxReserva.addItem(new ComboItem(reserva.getNome(), reserva.getId()));
+			}
+			
 			contentPanel.add(comboBoxReserva);
 		}
 		{
@@ -97,10 +119,24 @@ public class AddIndio extends JDialog {
 			contentPanel.add(rdbtnF);
 		}
 		{
-			textFieldDtNasc = new JTextField();
+			textFieldDtNasc = new JFormattedTextField();
 			textFieldDtNasc.setBounds(131, 83, 164, 20);
+			
+			MaskFormatter formater = new MaskFormatter(); 
+			try {
+				formater.setMask("####-##-##");
+			} catch (ParseException e) {} 
+			formater.install((JFormattedTextField) textFieldDtNasc);
+			
+			
 			contentPanel.add(textFieldDtNasc);
 			textFieldDtNasc.setColumns(10);
+		}
+		{
+			JLabel lblAaaammdd = new JLabel("AAAA-MM-DD");
+			lblAaaammdd.setForeground(Color.LIGHT_GRAY);
+			lblAaaammdd.setBounds(131, 104, 123, 14);
+			contentPanel.add(lblAaaammdd);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -108,6 +144,26 @@ public class AddIndio extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Indio indio = new Indio();
+						Object item = comboBoxReserva.getSelectedItem();
+						int idReserva = ((ComboItem)item).getValue();
+						indio.setIdReserva(idReserva);
+						indio.setNome(textFieldNome.getText());
+						indio.setDtNasc(textFieldDtNasc.getText());
+						if (rdbtnF.isSelected()) {
+							indio.setSexo("F");
+						} else {
+							indio.setSexo("M");
+						}
+						
+						if (indioDAO.adicionar(indio)) {
+							dispose();
+						}
+						
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

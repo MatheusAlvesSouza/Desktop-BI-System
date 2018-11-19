@@ -84,6 +84,12 @@ public class Dashboard {
 		
 		// JButton List All
 		JButton btnList = new JButton("");
+		btnList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerTaxas verTaxas = new VerTaxas();
+				verTaxas.start();
+			}
+		});
 		btnList.setBounds(101, 10, 81, 41);
 		panel.add(btnList);
 		

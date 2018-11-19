@@ -14,7 +14,7 @@ public class IndioDAO {
 	//ADD Indio
 	public boolean adicionar(Indio indio){
 			
-		String sql = "INSERT INTO tbl_indio(idReservaIndigena, nome, dtNasc) VALUES(?,?,?, 1)";
+		String sql = "INSERT INTO tbl_indio(idReservaIndigena, nome, sexo, dtNasc, ativo) VALUES(?,?,?,?, 1)";
 			
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
@@ -24,18 +24,48 @@ public class IndioDAO {
 			PreparedStatement stm = (PreparedStatement) con.prepareStatement(sql);
 			stm.setInt(1, indio.getIdReserva());
 			stm.setString(2, indio.getNome());
-			stm.setString(3,  indio.getDtNasc());
+			stm.setString(3, indio.getSexo());
+			stm.setString(4,  indio.getDtNasc());
 				
 			stm.execute();
-				
 			fab.fecharConexao();
 				
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 		
 		return true;
 	}
+	
+	public boolean deleteIndio(Indio indio){
+				
+			String sql = "INSERT INTO tbl_reserva_indigena_log(idReservaIndigena, idIndio, tipo, data) VALUES(?,?,?,NOW())";
+				
+			ConnectionFactory fab = new ConnectionFactory();
+			Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
+				
+			try {
+					
+				PreparedStatement stm = (PreparedStatement) con.prepareStatement(sql);
+				stm.setInt(1, indio.getIdReserva());
+				stm.setInt(2, indio.getId());
+				stm.setString(3, "DECREASE");
+				stm.execute();
+				
+				sql = "UPDATE tbl_indo SET ativo = 0 WHERE id = " + indio.getId();
+				
+				stm.execute();
+				
+				fab.fecharConexao();
+					
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				return false;
+			}
+			
+			return true;
+		}
 	
 	public ArrayList<Indio> listarIndios(int idReserva){
 		
@@ -61,6 +91,7 @@ public class IndioDAO {
 				indio.setId( rs.getInt("id") );
 				indio.setIdReserva( rs.getInt("idReservaIndigena") );
 				indio.setNome( rs.getString("nome") );
+				indio.setSexo( rs.getString("sexo"));
 				indio.setDtNasc(rs.getString("dtNasc"));
 				indio.setAtivo( rs.getInt("ativo"));
 				indios.add(indio);

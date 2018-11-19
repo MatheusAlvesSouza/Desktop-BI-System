@@ -4,9 +4,19 @@ public class Indio {
 	private int id;
 	private int idReserva;
 	private String nome;
+	private String sexo;
 	private String dtNasc;
 	private int ativo;
 	
+	
+	
+	
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
 	public int getId() {
 		return id;
 	}

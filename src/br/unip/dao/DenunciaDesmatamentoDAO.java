@@ -14,7 +14,7 @@ public class DenunciaDesmatamentoDAO {
 	//ADD Denuncia
 	public boolean adicionar(DenunciaDesmatamento denunciaDesmatamento){
 			
-		String sql = "INSERT INTO tbl_denuncia_desmatamento(idCidade, nome, descricao, ativo) VALUES(?,?,?,1)";
+		String sql = "INSERT INTO tbl_denuncia_desmatamento(idCidade, nome, descricao, data, ativo) VALUES(?,?,?,NOW(),1)";
 			
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
