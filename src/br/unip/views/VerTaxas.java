@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 public class VerTaxas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	String [] colunas = {"Nome da Reserva", "Cidade", "População", "Natalidade", "Mortalidade", "Denúnicas na Região"};
+	String [] colunas = {"Nome da Reserva","Estado","Cidade", "População", "Taxa Natalidade", "Taxa Mortalidade", "Denúnicas na Região"};
 	private JTable table;
 	private AnaliseDAO analiseDAO = new AnaliseDAO();
 
@@ -49,7 +49,13 @@ public class VerTaxas extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
+		DefaultTableModel tableModel = new DefaultTableModel(colunas, 0) {
+			@Override
+			public boolean isCellEditable(int row, int col)
+			{
+			return false;
+			}
+		};
 
 		JTable tabela = new JTable(tableModel);
 		JScrollPane scroll = new JScrollPane();
@@ -60,7 +66,7 @@ public class VerTaxas extends JDialog {
 		ArrayList<Analise> analises = analiseDAO.listar();
 		for(Analise analise : analises) {
 			
-			String[] linha = new String[]{ analise.getReserva() , analise.getCidade() , analise.getPopulacao() + "",
+			String[] linha = new String[]{ analise.getReserva() , analise.getEstado(), analise.getCidade() , analise.getPopulacao() + "",
 					analise.getNatalidade() + "%", analise.getMortalidade() + "%", analise.getDenuncias() + ""};
 			model.addRow(linha);
 		}

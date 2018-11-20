@@ -7,10 +7,17 @@ public class Indio {
 	private String sexo;
 	private String dtNasc;
 	private int ativo;
+	private int idade;
 	
 	
 	
 	
+	public int getIdade() {
+		return idade;
+	}
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
 	public String getSexo() {
 		return sexo;
 	}

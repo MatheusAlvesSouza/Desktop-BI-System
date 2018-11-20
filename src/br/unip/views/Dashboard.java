@@ -44,13 +44,13 @@ public class Dashboard {
 		frmDashboard.setTitle("Dashboard");
 		frmDashboard.setResizable(false);
 		frmDashboard.setAlwaysOnTop(true);
-		frmDashboard.setBounds(100, 100, 525, 368);
+		frmDashboard.setBounds(100, 100, 493, 368);
 		frmDashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDashboard.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(10, 11, 499, 61);
+		panel.setBounds(10, 11, 468, 61);
 		frmDashboard.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -104,6 +104,12 @@ public class Dashboard {
 		
 		// JButton Search
 		JButton btnSearch = new JButton("");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SelecionarReserva selecionarReserva = new SelecionarReserva();
+				selecionarReserva.start();
+			}
+		});
 		btnSearch.setBounds(283, 10, 81, 41);
 		panel.add(btnSearch);
 		
@@ -157,7 +163,7 @@ public class Dashboard {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
-		desktopPane.setBounds(10, 83, 499, 246);
+		desktopPane.setBounds(10, 83, 468, 246);
 		frmDashboard.getContentPane().add(desktopPane);
 		
 		JLabel lblReservasInd = new JLabel("Reservas Ind\u00EDgenas");
@@ -175,18 +181,18 @@ public class Dashboard {
 		lblDenncias.setBounds(328, 132, 84, 14);
 		desktopPane.add(lblDenncias);
 		
-		label_n_reservas.setForeground(Color.GREEN);
+		label_n_reservas.setForeground(new Color(0, 153, 0));
 		label_n_reservas.setFont(new Font("OCR A Extended", Font.BOLD, 32));
 		label_n_reservas.setBounds(104, 91, 57, 35);
 		desktopPane.add(label_n_reservas);
 		
-		label_n_indios.setForeground(Color.GREEN);
+		label_n_indios.setForeground(new Color(0, 153, 0));
 		label_n_indios.setFont(new Font("OCR A Extended", Font.BOLD, 32));
 		label_n_indios.setBounds(245, 91, 57, 35);
 		desktopPane.add(label_n_indios);
 		
 		
-		label_n_denuncias.setForeground(Color.RED);
+		label_n_denuncias.setForeground(new Color(204, 0, 0));
 		label_n_denuncias.setFont(new Font("OCR A Extended", Font.BOLD, 32));
 		label_n_denuncias.setBounds(347, 91, 57, 35);
 		desktopPane.add(label_n_denuncias);

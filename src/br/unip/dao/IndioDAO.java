@@ -52,11 +52,10 @@ public class IndioDAO {
 				stm.setInt(2, indio.getId());
 				stm.setString(3, "DECREASE");
 				stm.execute();
-				
-				sql = "UPDATE tbl_indo SET ativo = 0 WHERE id = " + indio.getId();
-				
+				sql = " UPDATE tbl_indio SET ativo = 0 WHERE id = "  + indio.getId();
+				stm = con.prepareStatement(sql);
 				stm.execute();
-				
+
 				fab.fecharConexao();
 					
 			} catch (SQLException e) {
@@ -70,11 +69,13 @@ public class IndioDAO {
 	public ArrayList<Indio> listarIndios(int idReserva){
 		
 		ArrayList<Indio> indios = new ArrayList<>();
-		String sql = "SELECT * FROM tbl_indio ";
+		String sql = "SELECT *, TIMESTAMPDIFF(YEAR, i.dtNasc, NOW()) AS idade  FROM tbl_indio AS i WHERE ativo = 1";
 		
 		if ( idReserva > 0) {
-			sql = sql + " WHERE idReservaIndigena = " + idReserva;		
+			sql = sql + " AND idReservaIndigena = " + idReserva;		
 		}
+		
+		sql = sql + " ORDER BY nome ASC";
 		
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
@@ -94,6 +95,7 @@ public class IndioDAO {
 				indio.setSexo( rs.getString("sexo"));
 				indio.setDtNasc(rs.getString("dtNasc"));
 				indio.setAtivo( rs.getInt("ativo"));
+				indio.setIdade( rs.getInt("idade"));
 				indios.add(indio);
 			}
 			
@@ -111,7 +113,7 @@ public class IndioDAO {
 	public Indio getIndio(int id){	
 
 		Indio indio = new Indio();
-		String sql = "SELECT * FROM tbl_indio WHERE id = ?";
+		String sql = "SELECT * FROM tbl_indio AS i WHERE id = ? AND ativo = 1";
 
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement

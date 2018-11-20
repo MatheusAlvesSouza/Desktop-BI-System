@@ -3,10 +3,19 @@ package br.unip.models;
 public class Analise {
 	private String reserva;
 	private String cidade;
+	private String estado;
 	private int populacao;
 	private int natalidade;
 	private int mortalidade;
 	private int denuncias;
+	
+	
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	public String getReserva() {
 		return reserva;
 	}
