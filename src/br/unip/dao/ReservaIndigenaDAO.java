@@ -14,7 +14,7 @@ public class ReservaIndigenaDAO {
 	//ADD Reserva
 	public boolean adicionar(ReservaIndigena reservaIndigena){
 			
-		String sql = "INSERT INTO tbl_reserva_indigena(idCidade, nome, populacao) VALUES(?,?, 0)";
+		String sql = "INSERT INTO tbl_reserva_indigena(idCidade, nome) VALUES(?,?)";
 			
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
@@ -66,7 +66,6 @@ public class ReservaIndigenaDAO {
 				reserva.setId( rs.getInt("id") );
 				reserva.setIdCidade( rs.getInt("idCidade") );
 				reserva.setNome( rs.getString("nome") );
-				reserva.setPopulacao(rs.getInt("populacao"));
 				reservas.add(reserva);
 			}
 			
@@ -99,7 +98,6 @@ public class ReservaIndigenaDAO {
 				reserva.setId( rs.getInt("id") );
 				reserva.setIdCidade( rs.getInt("idCidade") );
 				reserva.setNome( rs.getString("nome") );
-				reserva.setPopulacao(rs.getInt("populacao"));
 			}
 			
 			fab.fecharConexao();

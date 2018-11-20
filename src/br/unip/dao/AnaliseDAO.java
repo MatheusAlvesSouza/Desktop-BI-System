@@ -19,6 +19,7 @@ public class AnaliseDAO {
 		String sql = "SELECT \r\n" + 
 				"	RESERVA.id AS idReserva,\r\n" + 
 				"	RESERVA.nome,\r\n" + 
+				"	RESERVA.idCidade AS idCidade,\r\n" + 
 				"	CIDADE.nome AS cidade,\r\n" + 
 				"	ESTADO.nome AS estado,\r\n" + 
 				"	COUNT(INDIO.id) AS populacao,\r\n" + 
@@ -51,7 +52,7 @@ public class AnaliseDAO {
 				analise.setReserva( rs.getString("nome") );
 				analise.setCidade( rs.getString("cidade") );
 				analise.setPopulacao(rs.getInt("populacao"));
-				analise.setDenuncias( rs.getInt("denuncias"));
+				analise.setDenuncias( getDenuncias(rs.getInt("idCidade")) );
 				analise.setEstado( rs.getString("estado"));
 				analises.add(analise);
 			}
@@ -98,6 +99,32 @@ public class AnaliseDAO {
 		return analise;
 	}
 	
+	public int getDenuncias(int idCidade){
+		
+		int denuncias = 0;
+		String sql = "SELECT COUNT(id) as count FROM tbl_denuncia_desmatamento WHERE idCidade = " + idCidade;
+		
+		ConnectionFactory fab = new ConnectionFactory();
+		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
+		
+		try {
+			
+			PreparedStatement stm = (PreparedStatement) con.prepareStatement(sql);
+			ResultSet rs;
+			
+			rs = stm.executeQuery();
+
+			
+			while( rs.next() ){
+				denuncias = rs.getInt("count");
+			}
+			
+			fab.fecharConexao();
+			
+		} catch (SQLException e) {}		
+
+		return denuncias;
+	}
 
 }
 

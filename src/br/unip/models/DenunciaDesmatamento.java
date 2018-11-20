@@ -7,11 +7,18 @@ public class DenunciaDesmatamento {
 	private String nome;
 	private String descricao;
 	private String data;
+	private String cidade;
 	private int ativo;
 	
 	
 	
 	
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 	public String getData() {
 		return data;
 	}

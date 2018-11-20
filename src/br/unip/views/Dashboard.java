@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import br.unip.dao.*;
+import javax.swing.SwingConstants;
 
 public class Dashboard {
 
@@ -124,6 +125,12 @@ public class Dashboard {
 		
 		// JButton Warn
 		JButton btnWarn = new JButton("");
+		btnWarn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerDenuncias verDenuncias = new VerDenuncias();
+				verDenuncias.start();
+			}
+		});
 		btnWarn.setBounds(374, 10, 81, 41);
 		panel.add(btnWarn);
 		
@@ -173,28 +180,31 @@ public class Dashboard {
 		
 		JLabel lblndios = new JLabel("\u00CDndios");
 		lblndios.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblndios.setBounds(237, 132, 46, 14);
+		lblndios.setBounds(236, 132, 46, 14);
 		desktopPane.add(lblndios);
 		
 		JLabel lblDenncias = new JLabel("Den\u00FAncias");
 		lblDenncias.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblDenncias.setBounds(328, 132, 84, 14);
 		desktopPane.add(lblDenncias);
+		label_n_reservas.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		label_n_reservas.setForeground(new Color(0, 153, 0));
 		label_n_reservas.setFont(new Font("OCR A Extended", Font.BOLD, 32));
-		label_n_reservas.setBounds(104, 91, 57, 35);
+		label_n_reservas.setBounds(53, 91, 135, 35);
 		desktopPane.add(label_n_reservas);
+		label_n_indios.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		label_n_indios.setForeground(new Color(0, 153, 0));
 		label_n_indios.setFont(new Font("OCR A Extended", Font.BOLD, 32));
-		label_n_indios.setBounds(245, 91, 57, 35);
+		label_n_indios.setBounds(198, 91, 113, 35);
 		desktopPane.add(label_n_indios);
+		label_n_denuncias.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		label_n_denuncias.setForeground(new Color(204, 0, 0));
 		label_n_denuncias.setFont(new Font("OCR A Extended", Font.BOLD, 32));
-		label_n_denuncias.setBounds(347, 91, 57, 35);
+		label_n_denuncias.setBounds(321, 91, 83, 35);
 		desktopPane.add(label_n_denuncias);
 		
 		getInfos();
