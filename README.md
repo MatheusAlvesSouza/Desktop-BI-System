@@ -22,7 +22,7 @@ Todos os passos são realizados dentro de um CMD/Terminal.
         use native_human;
         ```
     - ```sql 
-        source [CAMINHO LOCAL ATÉ O DIRETÓRIO DO PROJETO]\src\br\unip\backupsql\dump.sql;
+        source [CAMINHO LOCAL ATÉ O DIRETÓRIO DO PROJETO]/src/br/unip/backupsql/dump.sql;
         ```
 3. Agora fora do Banco de dados digite:
     - `` cd [CAMINHO LOCAL ATÉ O DIRETÓRIO DO PROJETO]``

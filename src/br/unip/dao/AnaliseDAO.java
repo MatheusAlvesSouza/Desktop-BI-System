@@ -16,24 +16,24 @@ public class AnaliseDAO {
 		
 		ArrayList<Analise> analises = new ArrayList<>();
 		
-		String sql = "SELECT \r\n" + 
-				"	RESERVA.id AS idReserva,\r\n" + 
-				"	RESERVA.nome,\r\n" + 
-				"	RESERVA.idCidade AS idCidade,\r\n" + 
-				"	CIDADE.nome AS cidade,\r\n" + 
-				"	ESTADO.nome AS estado,\r\n" + 
-				"	COUNT(INDIO.id) AS populacao,\r\n" + 
-				"	COUNT(DENUNCIA.id) AS denuncias\r\n" + 
-				"FROM tbl_reserva_indigena AS RESERVA\r\n" + 
-				"INNER JOIN tbl_cidade AS CIDADE\r\n" + 
-				"ON RESERVA.idCidade = CIDADE.id\r\n" + 
-				"INNER JOIN tbl_estado AS ESTADO\r\n" + 
-				"ON CIDADE.idEstado = ESTADO.id\r\n" + 
-				"LEFT JOIN tbl_indio AS INDIO\r\n" + 
-				"ON  RESERVA.id = INDIO.idReservaIndigena\r\n" + 
-				"LEFT JOIN tbl_denuncia_desmatamento AS DENUNCIA\r\n" + 
-				"ON RESERVA.idCidade = DENUNCIA.idCidade\r\n" + 
-				"GROUP BY (RESERVA.id) ORDER BY RESERVA.nome, CIDADE.nome, ESTADO.nome ASC";
+		String sql = "SELECT   \r\n" + 
+				"	RESERVA.id AS idReserva,  \r\n" + 
+				"	RESERVA.nome,  \r\n" + 
+				"	RESERVA.idCidade AS idCidade,  \r\n" + 
+				"	CIDADE.nome AS cidade,  \r\n" + 
+				"	ESTADO.nome AS estado,  \r\n" + 
+				"	(SELECT COUNT(id) FROM tbl_indio WHERE idReservaIndigena = INDIO.idReservaIndigena) AS populacao,  \r\n" + 
+				"	COUNT(DENUNCIA.id) AS denuncias  \r\n" + 
+				"FROM tbl_reserva_indigena AS RESERVA  \r\n" + 
+				"INNER JOIN tbl_cidade AS CIDADE  \r\n" + 
+				"	ON RESERVA.idCidade = CIDADE.id  \r\n" + 
+				"INNER JOIN tbl_estado AS ESTADO  \r\n" + 
+				"	ON CIDADE.idEstado = ESTADO.id  \r\n" + 
+				"LEFT JOIN tbl_indio AS INDIO  \r\n" + 
+				"	ON  RESERVA.id = INDIO.idReservaIndigena  \r\n" + 
+				"LEFT JOIN tbl_denuncia_desmatamento AS DENUNCIA  \r\n" + 
+				"	ON RESERVA.idCidade = DENUNCIA.idCidade  \r\n" + 
+				"GROUP BY (RESERVA.id) ORDER BY RESERVA.nome, CIDADE.nome, ESTADO.nome ASC;";
 		
 		ConnectionFactory fab = new ConnectionFactory();
 		Connection con = fab.abrirConexao();//Estancia a conexao usada no statement
