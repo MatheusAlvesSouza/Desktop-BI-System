@@ -77,7 +77,7 @@ public class Login {
 		
 		
 		txt_user = new JTextField();
-		txt_user.setText("admin");
+		txt_user.setText("Brasil");
 		txt_user.setBounds(255, 87, 235, 20);
 		frmProjectName.getContentPane().add(txt_user);
 		txt_user.setColumns(10);
@@ -104,7 +104,7 @@ public class Login {
 		
 		txt_password.setText("123");
 		
-		JLabel lblInf = new JLabel("User or Password Incorrect !");
+		JLabel lblInf = new JLabel("Usuario ou senha incorretos !");
 		lblInf.setForeground(Color.RED);
 		lblInf.setFont(new Font("Arial", Font.BOLD, 13));
 		lblInf.setBounds(68, 257, 184, 14);
@@ -116,7 +116,7 @@ public class Login {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (txt_user.getText().equals("admin") && 
+				if (txt_user.getText().equals("Brasil") && 
 					txt_password.getText().equals("123")) {
 					dashboard.start(); //Starts the dashboard
 					close(); // Closed the currently frame

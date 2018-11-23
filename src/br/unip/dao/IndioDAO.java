@@ -92,7 +92,13 @@ public class IndioDAO {
 				indio.setId( rs.getInt("id") );
 				indio.setIdReserva( rs.getInt("idReservaIndigena") );
 				indio.setNome( rs.getString("nome") );
-				indio.setSexo( rs.getString("sexo"));
+				
+				if (rs.getString("sexo").equals("F")) {
+					indio.setSexo("Feminino");
+				} else {
+					indio.setSexo("Masculino");
+				}
+				
 				indio.setDtNasc(rs.getString("dtNasc"));
 				indio.setAtivo( rs.getInt("ativo"));
 				indio.setIdade( rs.getInt("idade"));

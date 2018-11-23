@@ -93,7 +93,7 @@ public class VerDenuncias extends JDialog {
 						public void actionPerformed(ActionEvent e) {
 							int resposta = JOptionPane.showConfirmDialog(contentPanel, 
 									"Ao finalizar uma denúncia ela não aparecerá mais no quadro de alertas. "
-									+ "mais a reserva.", "Deseja realmente finalizar?", JOptionPane.WARNING_MESSAGE);
+									, "Deseja realmente finalizar?", JOptionPane.WARNING_MESSAGE);
 						    //verfica se a resposta é verdadeira
 						    if (resposta == JOptionPane.YES_OPTION) {
 						    	int linha = tabela.getSelectedRow();
