@@ -18,16 +18,16 @@ Todos os passos são realizados dentro de um CMD/Terminal.
     - ```sql
         create database native_human;
         ```
-    - ```sql 
+    - ```sql
         use native_human;
         ```
-    - ```sql 
+    - ```sql
         source [CAMINHO LOCAL ATÉ O DIRETÓRIO DO PROJETO]/src/br/unip/backupsql/dump.sql;
         ```
+    - **É extremamente importante o login do banco de dados ser "root" e a senha em branco ""**
+    
 3. Agora fora do Banco de dados digite:
     - `` cd [CAMINHO LOCAL ATÉ O DIRETÓRIO DO PROJETO]``
     - `` java -jar ./src/br/unip/jar/native_human.jar ``
 
 4. Com o DashBoard do projeto aberto, já é possível realizar inserções e atualizações de cadastros. As taxas de **natalidade e mortalidade** são calculadas em escalada reduzida de número de nascimentos ou falecimentos para cada **50 Habitantes**. Elas inicialmente veem zeradas, e para verificar novas taxas é só simplesmente adicionar novos índios a uma reserva ou excluí-los no menu da Reserva. O projeto está em escala inicial, mas durante o desenvolvimento do próprio, o grupo percebeu um leque de **features** que podem ser implementadas com mais tempo, como por exemplo o uso de AI para predições da quantidade de Índios no país, um relacionamento mais completo da Região aonde é registrado Denúncias com essas taxas. Enfim, é um projeto enorme que tem um enorme potêncial de uso para ONGS, Municipios e até mesmo o Governo Federal.
-
-
